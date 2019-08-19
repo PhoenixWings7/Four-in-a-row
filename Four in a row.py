@@ -27,7 +27,33 @@ def printBoard():
 
 
 def winCondition(board):
-    pass
+    for i in range(42):
+        col = i // 7
+        row = i % 6
+
+        signs = ["X", "O"]
+
+        for item in signs:
+            try:
+                if board[col][row] == item and board[col][row+1] == item and board[col][row+2] == item and board[col][row+3] == item:
+                    return True
+            except:
+                pass
+            try:     
+                if board[col][row] == item and board[col+1][row] == item and board[col+2][row] == item and board[col+3][row] == item:
+                    return True
+            except:
+                pass
+            try:     
+                if board[col][row] == item and board[col+1][row+1] == item and board[col+2][row+2] == item and board[col+3][row+3] == item:
+                    return True
+            except:
+                pass
+            try:     
+                if board[col][row] == item and board[col+1][row-1] == item and board[col+2][row-2] == item and board[col+3][row+-3] == item:
+                    return True
+            except:
+                pass
 
 
 def emptySquare(column_number, square_number):
