@@ -25,15 +25,15 @@ def print_board():
     # print(f"   | {board[0][5]} | {board[1][5]} | {board[2][5]} | {board[3][5]} | {board[4][5]} | {board[5][5]} | {board[6][5]} |")
     # print(f"    ---------------------------")
 
-    print(f"     1   2   3   4   5   6   7")
+    print(f"      1   2   3   4   5   6   7")
     for row in range(6):
-        print(f"    ---------------------------")
-        print(f"   | {board[0][row]} | {board[1][row]} | {board[2][row]} | {board[3][row]} | {board[4][row]} | {board[5][row]} | {board[6][row]} |")
-    print(f"    ---------------------------")
+        print(f"     ---------------------------")
+        print(f"{row+1}   | {board[0][row]} | {board[1][row]} | {board[2][row]} | {board[3][row]} | {board[4][row]} | {board[5][row]} | {board[6][row]} |")
+    print(f"     ---------------------------")
 
 def winCondition(board):
     for i in range(42):
-        col = i // 7
+        col = i // 6
         row = i % 6
 
         signs = ["X", "O"]
@@ -72,11 +72,6 @@ def emptySquare(column_number, square_number):
 
 def main():
     os.system('clear')
-    for p in range(0,43):
-        col = p // 7
-        row = p % 6
-
-        print(board[col][row])
     print("You're about to play Four in the row. Enjoy.")
     print_board()
     turn = 1
@@ -105,7 +100,7 @@ def main():
                     content = PLAYER_2_SIGN
                     break
                 square_number+=-1
-        if winCondition(board) == True:
+        if winCondition(board):
             os.system('clear')
             print_board()
             print("You win!")
