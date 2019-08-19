@@ -9,7 +9,7 @@ PLAYER_1_SIGN = "O"
 PLAYER_2 = "2"
 PLAYER_2_SIGN = "X"
 
-def printBoard():
+def print_board():
     # print(f"     1   2   3   4   5   6   7")
     # print(f"    ---------------------------")
     # print(f"   | {board[0][0]} | {board[1][0]} | {board[2][0]} | {board[3][0]} | {board[4][0]} | {board[5][0]} | {board[6][0]} |")
@@ -78,7 +78,7 @@ def main():
 
         print(board[col][row])
     print("You're about to play Four in the row. Enjoy.")
-    printBoard()
+    print_board()
     turn = 1
     while turn <= 42:
         if turn%2 == 0:
@@ -107,12 +107,12 @@ def main():
                 square_number+=-1
         if winCondition(board) == True:
             os.system('clear')
-            printBoard()
+            print_board()
             print("You win!")
             break
         turn+=1
         os.system('clear')
-        printBoard()
+        print_board()
     print("Game over.")
     
 
