@@ -35,15 +35,10 @@ def print_board():
         print(f"|\n ---------------------------")
 
 def winCondition(board):
-<<<<<<< HEAD
-    for square_number in range(NUMBER_OF_SQUARES):
-        col = square_number // 6
-        row = square_number % 6
-=======
+
     for i in range(42):
         col = i // len(board[0])
         row = i % len(board[0])
->>>>>>> 9d95a0ff27a5b7b26980fbd648ec56fb9260d104
 
         signs = ["X", "O"]
 
