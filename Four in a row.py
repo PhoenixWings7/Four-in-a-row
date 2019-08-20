@@ -2,7 +2,7 @@ import os
 
 NUMBER_OF_COLUMNS = 7
 NUMBER_OF_ROWS = 6
-NUMBER_OF_SQUARES = 42
+NUMBER_OF_SQUARES = NUMBER_OF_COLUMNS*NUMBER_OF_ROWS
 
 def print_board(board):
     print(f"  1   2   3   4   5   6   7")
