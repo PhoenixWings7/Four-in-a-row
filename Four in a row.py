@@ -35,9 +35,9 @@ def print_board():
         print(f"|\n ---------------------------")
 
 def winCondition(board):
-    for i in range(42):
-        col = i // 6
-        row = i % 6
+    for square_number in range(NUMBER_OF_SQUARES):
+        col = square_number // 6
+        row = square_number % 6
 
         signs = ["X", "O"]
 
