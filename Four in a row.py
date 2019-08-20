@@ -12,21 +12,6 @@ NUMBER_OF_SQUARES = 42
 board = [[' ',' ',' ',' ',' ',' '] for column in range(NUMBER_OF_COLUMNS)]
 
 def print_board():
-    # print(f"     1   2   3   4   5   6   7")
-    # print(f"    ---------------------------")
-    # print(f"   | {board[0][0]} | {board[1][0]} | {board[2][0]} | {board[3][0]} | {board[4][0]} | {board[5][0]} | {board[6][0]} |")
-    # print(f"    ---------------------------")
-    # print(f"   | {board[0][1]} | {board[1][1]} | {board[2][1]} | {board[3][1]} | {board[4][1]} | {board[5][1]} | {board[6][1]} |")
-    # print(f"    ---------------------------")
-    # print(f"   | {board[0][2]} | {board[1][2]} | {board[2][2]} | {board[3][2]} | {board[4][2]} | {board[5][2]} | {board[6][2]} |")
-    # print(f"    ---------------------------")
-    # print(f"   | {board[0][3]} | {board[1][3]} | {board[2][3]} | {board[3][3]} | {board[4][3]} | {board[5][3]} | {board[6][3]} |")
-    # print(f"    ---------------------------")
-    # print(f"   | {board[0][4]} | {board[1][4]} | {board[2][4]} | {board[3][4]} | {board[4][4]} | {board[5][4]} | {board[6][4]} |")
-    # print(f"    ---------------------------")
-    # print(f"   | {board[0][5]} | {board[1][5]} | {board[2][5]} | {board[3][5]} | {board[4][5]} | {board[5][5]} | {board[6][5]} |")
-    # print(f"    ---------------------------")
-
     print(f"  1   2   3   4   5   6   7")
     print(f" ---------------------------")
     for row in range(NUMBER_OF_ROWS):
@@ -37,8 +22,9 @@ def print_board():
 def winCondition(board):
 
     for i in range(42):
-        col = i // len(board[0])
-        row = i % len(board[0])
+        column_length = len(board[0])
+        col = i // column_length
+        row = i % column_length
 
         signs = ["X", "O"]
 
@@ -65,10 +51,9 @@ def winCondition(board):
                 pass
 
 
-def emptySquare(column_number, square_number):
-    column = board[column_number-1]
-    print(column)
-    if column[square_number] == ' ':
+def emptySquare(column_number, row_number):
+    square = board[column_number-1][row_number]
+    if square == ' ':
         empty = True
     else:
         empty = False
@@ -79,31 +64,33 @@ def main():
     print("You're about to play Four in the row. Enjoy.")
     print_board()
     turn = 1
-    while turn <= 42:
+    while turn <= NUMBER_OF_SQUARES:
         if turn%2 == 0:
             player = PLAYER_2
         else:
             player = PLAYER_1
-        
-        column_number = int(input("Pick a column: "))
-        column = board[column_number-1]
+        try:
+            column_number = int(input("Pick a column: "))
+            column = board[column_number-1]
+        except (ValueError, IndexError):
+            continue
 
         if player == PLAYER_1:
-            square_number = 5
-            while square_number >= 0:
-                if emptySquare(column_number, square_number)==True:
-                    column[square_number] = PLAYER_1_SIGN
+            row_number = NUMBER_OF_ROWS-1 #iteration begins from the last row in the column
+            while row_number >= 0:
+                if emptySquare(column_number, row_number)==True:
+                    column[row_number] = PLAYER_1_SIGN
                     content = PLAYER_1_SIGN
                     break
-                square_number+=-1
+                row_number+=-1
         else:
-            square_number = 5
-            while square_number >= 0:
-                if emptySquare(column_number, square_number) == True:
-                    column[square_number] = PLAYER_2_SIGN
+            row_number = NUMBER_OF_ROWS-1
+            while row_number >= 0:
+                if emptySquare(column_number, row_number) == True:
+                    column[row_number] = PLAYER_2_SIGN
                     content = PLAYER_2_SIGN
                     break
-                square_number+=-1
+                row_number+=-1
         if winCondition(board):
             os.system('clear')
             print_board()
