@@ -3,6 +3,38 @@ import os
 NUMBER_OF_COLUMNS = 7
 NUMBER_OF_ROWS = 6
 NUMBER_OF_SQUARES = NUMBER_OF_COLUMNS*NUMBER_OF_ROWS
+MAXIMUM_NUMBER_OF_PLAYERS = 5
+
+def selecting_players(number_of_players):
+    player_signs_dict = {}
+    players_names = []
+    while number_of_players > 0:
+        name = input("Enter the name of a player: ")
+        if name in player_signs_dict:
+            input("Sorry! This player already exists! Press enter to try again.")
+            continue
+        
+        sign = input(f"Enter {name}'s sign in the game (a single letter or number): ")
+        if sign in player_signs_dict.values():
+            input("This is another player's sign. Press enter to start from your name.")
+            continue
+        elif len(list(sign)) != 1:
+            input("This is not a valid sign. Press enter to start from your name.")
+            continue
+        
+        player_signs_dict[f"{name}"] = f"{sign}"
+        players_names.append(name)
+        number_of_players+=-1
+    return player_signs_dict, players_names
+        
+
+def selecting_number_of_players():
+    valid_player_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_PLAYERS+1)))
+    number_of_players = input(f"Enter number of players (max number of players is {MAXIMUM_NUMBER_OF_PLAYERS}): ")
+    while number_of_players not in valid_player_number:
+        number_of_players = input(f"Enter number of players (max number of players is {MAXIMUM_NUMBER_OF_PLAYERS}): ")
+    number_of_players = int(number_of_players)
+    return number_of_players
 
 def print_board(board):
     print(f"  1   2   3   4   5   6   7")
@@ -43,8 +75,7 @@ def winCondition(board, square_content):
 
     return False
 
-
-def emptySquare(column_number, row_number):
+def emptySquare(board, column_number, row_number):
     square = board[column_number-1][row_number]
 
     return square == ' '
@@ -54,30 +85,29 @@ def main():
 
     os.system('clear')
     print("You're about to play Four in the row_num. Enjoy.")
+
+    number_of_players = selecting_number_of_players()
+    player_signs_dict, players_names = selecting_players(number_of_players)
+    
     print_board(board)
     turn = 1
 
-    while turn <= NUMBER_OF_SQUARES:
-        if turn%2 == 0:
-            player = "player_2"
-        else:
-            player = "player_1"
-        
+    while turn <= NUMBER_OF_SQUARES:        
+        player = players_names[turn%number_of_players]
+
         try:
             column_number = int(input("Pick a column: "))
             column = board[column_number-1]
         except (ValueError, IndexError):
             continue
-
-        player_signs_dict = {"player_1" : "O",
-                            "player_2" : "X",}
+        
 
         player_sign = player_signs_dict[player]
         #iteration begins from the last row_num in the column
         row_number = NUMBER_OF_ROWS-1
         
         while row_number >= 0:
-            if emptySquare(column_number, row_number):
+            if emptySquare(board, column_number, row_number):
                 column[row_number] = player_sign
                 square_content = player_sign
                 break
@@ -92,8 +122,6 @@ def main():
         os.system('clear')
         print_board(board)
     print("Game over.")
-    
-
 
 if __name__ == "__main__":
     main()
