@@ -1,13 +1,15 @@
 # Windows: exec(open("c:/Users/lenovo/Desktop/Code/TicTacToe.py").read())
 import os
 
-board = [[' ',' ',' ',' ',' ',' '] for row in range(7)]
-
 
 PLAYER_1 = "1"
 PLAYER_1_SIGN = "O"
 PLAYER_2 = "2"
 PLAYER_2_SIGN = "X"
+NUMBER_OF_COLUMNS = 7
+NUMBER_OF_ROWS = 6
+NUMBER_OF_SQUARES = 42
+board = [[' ',' ',' ',' ',' ',' '] for column in range(NUMBER_OF_COLUMNS)]
 
 def print_board():
     # print(f"     1   2   3   4   5   6   7")
@@ -25,11 +27,12 @@ def print_board():
     # print(f"   | {board[0][5]} | {board[1][5]} | {board[2][5]} | {board[3][5]} | {board[4][5]} | {board[5][5]} | {board[6][5]} |")
     # print(f"    ---------------------------")
 
-    print(f"      1   2   3   4   5   6   7")
-    for row in range(6):
-        print(f"     ---------------------------")
-        print(f"{row+1}   | {board[0][row]} | {board[1][row]} | {board[2][row]} | {board[3][row]} | {board[4][row]} | {board[5][row]} | {board[6][row]} |")
-    print(f"     ---------------------------")
+    print(f"  1   2   3   4   5   6   7")
+    print(f" ---------------------------")
+    for row in range(NUMBER_OF_ROWS):
+        for column in range(NUMBER_OF_COLUMNS):
+            print(f"| {board[column][row]} ", end = "")
+        print(f"|\n ---------------------------")
 
 def winCondition(board):
     for i in range(42):
