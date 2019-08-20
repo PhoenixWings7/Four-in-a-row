@@ -1,11 +1,6 @@
 # Windows: exec(open("c:/Users/lenovo/Desktop/Code/TicTacToe.py").read())
 import os
 
-
-PLAYER_1 = "1"
-PLAYER_1_SIGN = "O"
-PLAYER_2 = "2"
-PLAYER_2_SIGN = "X"
 NUMBER_OF_COLUMNS = 7
 NUMBER_OF_ROWS = 6
 NUMBER_OF_SQUARES = 42
@@ -63,31 +58,26 @@ def main():
     turn = 1
     while turn <= NUMBER_OF_SQUARES:
         if turn%2 == 0:
-            player = PLAYER_2
+            player = "player_2"
         else:
-            player = PLAYER_1
+            player = "player_1"
         try:
             column_number = int(input("Pick a column: "))
             column = board[column_number-1]
         except (ValueError, IndexError):
             continue
 
-        if player == PLAYER_1:
-            row_number = NUMBER_OF_ROWS-1 #iteration begins from the last row_num in the column
-            while row_number >= 0:
-                if emptySquare(column_number, row_number)==True:
-                    column[row_number] = PLAYER_1_SIGN
-                    square_content = PLAYER_1_SIGN
-                    break
-                row_number+=-1
-        else:
-            row_number = NUMBER_OF_ROWS-1
-            while row_number >= 0:
-                if emptySquare(column_number, row_number) == True:
-                    column[row_number] = PLAYER_2_SIGN
-                    square_content = PLAYER_2_SIGN
-                    break
-                row_number+=-1
+        player_signs_dict = {"player_1" : "O",
+                            "player_2" : "X",}
+
+        player_sign = player_signs_dict[player]
+        row_number = NUMBER_OF_ROWS-1 #iteration begins from the last row_num in the column
+        while row_number >= 0:
+            if emptySquare(column_number, row_number)==True:
+                column[row_number] = player_sign
+                square_content = player_sign
+                break
+            row_number+=-1
         
         if winCondition(board, square_content): #winCondition(square_content) - iteracja planszy tylko po jednym ze znaków(tym, który wstawiamy)
             os.system('clear')
