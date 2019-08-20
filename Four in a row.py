@@ -1,20 +1,19 @@
-# Windows: exec(open("c:/Users/lenovo/Desktop/Code/TicTacToe.py").read())
 import os
 
 NUMBER_OF_COLUMNS = 7
 NUMBER_OF_ROWS = 6
 NUMBER_OF_SQUARES = 42
-board = [[' ',' ',' ',' ',' ',' '] for column in range(NUMBER_OF_COLUMNS)]
 
-def print_board():
+def print_board(board):
     print(f"  1   2   3   4   5   6   7")
     print(f" ---------------------------")
+    
     for row_num in range(NUMBER_OF_ROWS):
         for column in range(NUMBER_OF_COLUMNS):
             print(f"| {board[column][row_num]} ", end = "")
         print(f"|\n ---------------------------")
 
-def winCondition(board, square_content): #square_content = square_content, winCondition(square_content)?
+def winCondition(board, square_content):
 
     for square_number in range(NUMBER_OF_SQUARES):
         column_length = len(board[0])
@@ -42,25 +41,28 @@ def winCondition(board, square_content): #square_content = square_content, winCo
         except:
             pass
 
+    return False
+
 
 def emptySquare(column_number, row_number):
     square = board[column_number-1][row_number]
-    if square == ' ':
-        empty = True
-    else:
-        empty = False
-    return empty
+
+    return square == ' '
 
 def main():
+    board = [[' ',' ',' ',' ',' ',' '] for column in range(NUMBER_OF_COLUMNS)]
+
     os.system('clear')
     print("You're about to play Four in the row_num. Enjoy.")
-    print_board()
+    print_board(board)
     turn = 1
+
     while turn <= NUMBER_OF_SQUARES:
         if turn%2 == 0:
             player = "player_2"
         else:
             player = "player_1"
+        
         try:
             column_number = int(input("Pick a column: "))
             column = board[column_number-1]
@@ -71,22 +73,24 @@ def main():
                             "player_2" : "X",}
 
         player_sign = player_signs_dict[player]
-        row_number = NUMBER_OF_ROWS-1 #iteration begins from the last row_num in the column
+        #iteration begins from the last row_num in the column
+        row_number = NUMBER_OF_ROWS-1
+        
         while row_number >= 0:
-            if emptySquare(column_number, row_number)==True:
+            if emptySquare(column_number, row_number):
                 column[row_number] = player_sign
                 square_content = player_sign
                 break
             row_number+=-1
         
-        if winCondition(board, square_content): #winCondition(square_content) - iteracja planszy tylko po jednym ze znaków(tym, który wstawiamy)
+        if winCondition(board, square_content):
             os.system('clear')
-            print_board()
+            print_board(board)
             print("You win!")
             break
         turn+=1
         os.system('clear')
-        print_board()
+        print_board(board)
     print("Game over.")
     
 
