@@ -33,8 +33,8 @@ def print_board():
 
 def winCondition(board):
     for i in range(42):
-        col = i // 6
-        row = i % 6
+        col = i // len(board[0])
+        row = i % len(board[0])
 
         signs = ["X", "O"]
 
