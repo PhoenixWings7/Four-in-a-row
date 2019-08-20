@@ -50,7 +50,7 @@ def emptySquare(column_number, row_number):
     return square == ' '
 
 def main():
-    board = [[' ',' ',' ',' ',' ',' '] for column in range(NUMBER_OF_COLUMNS)]
+    board = [[' ']*NUMBER_OF_ROWS for column in range(NUMBER_OF_COLUMNS)]
 
     os.system('clear')
     print("You're about to play Four in the row_num. Enjoy.")
