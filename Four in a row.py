@@ -1,10 +1,5 @@
 import os
 
-NUMBER_OF_COLUMNS = 7
-NUMBER_OF_ROWS = 6
-NUMBER_OF_SQUARES = NUMBER_OF_COLUMNS*NUMBER_OF_ROWS
-MAXIMUM_NUMBER_OF_PLAYERS = 5
-
 def selecting_players(number_of_players):
     player_signs_dict = {}
     players_names = []
@@ -28,7 +23,7 @@ def selecting_players(number_of_players):
     return player_signs_dict, players_names
         
 
-def selecting_number_of_players():
+def selecting_number_of_players(MAXIMUM_NUMBER_OF_PLAYERS):
     valid_player_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_PLAYERS+1)))
     number_of_players = input(f"Enter number of players (max number of players is {MAXIMUM_NUMBER_OF_PLAYERS}): ")
     while number_of_players not in valid_player_number:
@@ -36,16 +31,42 @@ def selecting_number_of_players():
     number_of_players = int(number_of_players)
     return number_of_players
 
-def print_board(board):
-    print(f"  1   2   3   4   5   6   7")
-    print(f" ---------------------------")
+def selecting_number_of_columns(MAXIMUM_NUMBER_OF_COLUMNS):
+    valid_column_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_COLUMNS+1)))
+    number_of_columns = input(f"Enter number of columns (max number of columns is {MAXIMUM_NUMBER_OF_COLUMNS}): ")
+    while number_of_columns not in valid_column_number:
+        number_of_columns = input(f"Enter number of columns (max number of columns is {MAXIMUM_NUMBER_OF_COLUMNS}): ")
+    number_of_columns = int(number_of_columns)
+    return number_of_columns
+
+def selecting_number_of_rows(MAXIMUM_NUMBER_OF_ROWS):
+    valid_row_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_ROWS+1)))
+    number_of_rows = input(f"Enter number of rows (max number of rows is {MAXIMUM_NUMBER_OF_ROWS}): ")
+    while number_of_rows not in valid_row_number:
+        number_of_rows = input(f"Enter number of rows (max number of rows is {MAXIMUM_NUMBER_OF_ROWS}): ")
+    number_of_rows = int(number_of_rows)
+    return number_of_rows
+
+def print_board(board, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS):
+    NUMBER_OF_LINES_PER_COLUMN = 3
+    AMOUNT_OF_SPACES_BEETWEEN_COLUMNS = NUMBER_OF_COLUMNS-1
+
+    column_numbers = [column_number for column_number in range(1, NUMBER_OF_COLUMNS+1)]
+    #prints columns numbers and spaces beetween them
+    print("  ", end = "")
+    for column_number in column_numbers:
+        print(f"{column_number}   ", end = "" )
+    #prints a dividing line
+    print(f"\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BEETWEEN_COLUMNS)
     
     for row_num in range(NUMBER_OF_ROWS):
         for column in range(NUMBER_OF_COLUMNS):
             print(f"| {board[column][row_num]} ", end = "")
-        print(f"|\n ---------------------------")
+        print(f"|\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BEETWEEN_COLUMNS)
 
-def winCondition(board, square_content):
+        #print(f"|\n ---------------------------")
+
+def winCondition(board, square_content, NUMBER_OF_SQUARES):
 
     for square_number in range(NUMBER_OF_SQUARES):
         column_length = len(board[0])
@@ -81,15 +102,22 @@ def emptySquare(board, column_number, row_number):
     return square == ' '
 
 def main():
-    board = [[' ']*NUMBER_OF_ROWS for column in range(NUMBER_OF_COLUMNS)]
-
     os.system('clear')
     print("You're about to play Four in the row_num. Enjoy.")
 
-    number_of_players = selecting_number_of_players()
-    player_signs_dict, players_names = selecting_players(number_of_players)
+    MAXIMUM_NUMBER_OF_PLAYERS = 5
+    MAXIMUM_NUMBER_OF_COLUMNS = 9
+    MAXIMUM_NUMBER_OF_ROWS = 12
     
-    print_board(board)
+    number_of_players = selecting_number_of_players(MAXIMUM_NUMBER_OF_PLAYERS)
+    player_signs_dict, players_names = selecting_players(number_of_players)
+    NUMBER_OF_COLUMNS = selecting_number_of_columns(MAXIMUM_NUMBER_OF_COLUMNS)
+    NUMBER_OF_ROWS = selecting_number_of_rows(MAXIMUM_NUMBER_OF_ROWS)
+    NUMBER_OF_SQUARES = NUMBER_OF_COLUMNS*NUMBER_OF_ROWS
+    board = [[' ']*NUMBER_OF_ROWS for column in range(NUMBER_OF_COLUMNS)]
+    
+    os.system('clear')
+    print_board(board, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS)
     turn = 1
 
     while turn <= NUMBER_OF_SQUARES:        
@@ -113,14 +141,14 @@ def main():
                 break
             row_number+=-1
         
-        if winCondition(board, square_content):
+        if winCondition(board, square_content, NUMBER_OF_SQUARES):
             os.system('clear')
-            print_board(board)
+            print_board(board, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS)
             print(f"{player} wins!")
             break
         turn+=1
         os.system('clear')
-        print_board(board)
+        print_board(board, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS)
     print("Game over.")
 
 if __name__ == "__main__":
