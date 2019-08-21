@@ -94,7 +94,7 @@ def main():
 
     while turn <= NUMBER_OF_SQUARES:        
         player = players_names[turn%number_of_players]
-
+        print(f"{player}'s turn.")
         try:
             column_number = int(input("Pick a column: "))
             column = board[column_number-1]
@@ -116,7 +116,7 @@ def main():
         if winCondition(board, square_content):
             os.system('clear')
             print_board(board)
-            print("You win!")
+            print(f"{player} wins!")
             break
         turn+=1
         os.system('clear')
