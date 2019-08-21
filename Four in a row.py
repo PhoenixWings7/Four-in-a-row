@@ -30,40 +30,40 @@ def selecting_number_of_players(MAXIMUM_NUMBER_OF_PLAYERS):
     number_of_players = int(number_of_players)
     return number_of_players
 
-def selecting_number_of_columns(MAXIMUM_NUMBER_OF_COLUMNS):
-    valid_column_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_COLUMNS+1)))
-    number_of_columns = input(f"Enter number of columns (max number of columns is {MAXIMUM_NUMBER_OF_COLUMNS}): ")
+def selecting_number_of_columns(MINIMUM_NUMBER_OF_COLUMNS, MAXIMUM_NUMBER_OF_COLUMNS):
+    valid_column_number = list(map(str, range(MINIMUM_NUMBER_OF_COLUMNS,MAXIMUM_NUMBER_OF_COLUMNS+1)))
+    number_of_columns = input(f"Enter number of columns (choose between {MINIMUM_NUMBER_OF_COLUMNS} and {MAXIMUM_NUMBER_OF_COLUMNS}): ")
     while number_of_columns not in valid_column_number:
-        number_of_columns = input(f"Enter number of columns (max number of columns is {MAXIMUM_NUMBER_OF_COLUMNS}): ")
+        number_of_columns = input(f"Enter number of columns (choose between {MINIMUM_NUMBER_OF_COLUMNS} and {MAXIMUM_NUMBER_OF_COLUMNS}): ")
     number_of_columns = int(number_of_columns)
     return number_of_columns
 
-def selecting_number_of_rows(MAXIMUM_NUMBER_OF_ROWS):
-    valid_row_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_ROWS+1)))
-    number_of_rows = input(f"Enter number of rows (max number of rows is {MAXIMUM_NUMBER_OF_ROWS}): ")
+def selecting_number_of_rows(MINIMUM_NUMBER_OF_ROWS, MAXIMUM_NUMBER_OF_ROWS):
+    valid_row_number = list(map(str, range(MINIMUM_NUMBER_OF_ROWS,MAXIMUM_NUMBER_OF_ROWS+1)))
+    number_of_rows = input(f"Enter number of rows (choose between {MINIMUM_NUMBER_OF_ROWS} and {MAXIMUM_NUMBER_OF_ROWS}): ")
     while number_of_rows not in valid_row_number:
-        number_of_rows = input(f"Enter number of rows (max number of rows is {MAXIMUM_NUMBER_OF_ROWS}): ")
+        number_of_rows = input(f"Enter number of rows (choose between {MINIMUM_NUMBER_OF_ROWS} and {MAXIMUM_NUMBER_OF_ROWS}): ")
     number_of_rows = int(number_of_rows)
     return number_of_rows
 
 def print_board(board, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS):
     NUMBER_OF_LINES_PER_COLUMN = 3
-    AMOUNT_OF_SPACES_BEETWEEN_COLUMNS = NUMBER_OF_COLUMNS-1
+    AMOUNT_OF_SPACES_BETWEEN_COLUMNS = NUMBER_OF_COLUMNS-1
 
     column_numbers = [column_number for column_number in range(1, NUMBER_OF_COLUMNS+1)]
-    #prints columns numbers and spaces beetween them
+    #prints columns numbers and spaces between them
     print("  ", end = "")
     for column_number in column_numbers:
         print(f"{column_number}   ", end = "" )
     #prints a dividing line
-    print(f"\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BEETWEEN_COLUMNS)
+    print(f"\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BETWEEN_COLUMNS)
     
     #prints the rest of the board
     for row_num in range(NUMBER_OF_ROWS):
         #prints one row of squares divided by "|"
         for column in range(NUMBER_OF_COLUMNS):
             print(f"| {board[column][row_num]} ", end = "")
-        print(f"|\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BEETWEEN_COLUMNS)
+        print(f"|\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BETWEEN_COLUMNS)
 
 def winCondition(board, square_content, NUMBER_OF_SQUARES):
 
@@ -105,16 +105,18 @@ def fullColumn(board, column_number):
 
 def main():
     os.system('clear')
-    print("You're about to play Four in the row_num. Enjoy.")
+    print("You're about to play Four in a row. Enjoy.")
 
     MAXIMUM_NUMBER_OF_PLAYERS = 5
+    MINIMUM_NUMBER_OF_COLUMNS = 4
     MAXIMUM_NUMBER_OF_COLUMNS = 9
+    MINIMUM_NUMBER_OF_ROWS = 4
     MAXIMUM_NUMBER_OF_ROWS = 12
     
     number_of_players = selecting_number_of_players(MAXIMUM_NUMBER_OF_PLAYERS)
     player_signs_dict, players_names = selecting_players(number_of_players)
-    NUMBER_OF_COLUMNS = selecting_number_of_columns(MAXIMUM_NUMBER_OF_COLUMNS)
-    NUMBER_OF_ROWS = selecting_number_of_rows(MAXIMUM_NUMBER_OF_ROWS)
+    NUMBER_OF_COLUMNS = selecting_number_of_columns(MINIMUM_NUMBER_OF_COLUMNS, MAXIMUM_NUMBER_OF_COLUMNS)
+    NUMBER_OF_ROWS = selecting_number_of_rows(MINIMUM_NUMBER_OF_ROWS, MAXIMUM_NUMBER_OF_ROWS)
     NUMBER_OF_SQUARES = NUMBER_OF_COLUMNS*NUMBER_OF_ROWS
     board = [[' ']*NUMBER_OF_ROWS for column in range(NUMBER_OF_COLUMNS)]
     
