@@ -22,7 +22,6 @@ def selecting_players(number_of_players):
         number_of_players+=-1
     return player_signs_dict, players_names
         
-
 def selecting_number_of_players(MAXIMUM_NUMBER_OF_PLAYERS):
     valid_player_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_PLAYERS+1)))
     number_of_players = input(f"Enter number of players (max number of players is {MAXIMUM_NUMBER_OF_PLAYERS}): ")
@@ -59,12 +58,12 @@ def print_board(board, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS):
     #prints a dividing line
     print(f"\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BEETWEEN_COLUMNS)
     
+    #prints the rest of the board
     for row_num in range(NUMBER_OF_ROWS):
+        #prints one row of squares divided by "|"
         for column in range(NUMBER_OF_COLUMNS):
             print(f"| {board[column][row_num]} ", end = "")
         print(f"|\n " + "-"*NUMBER_OF_COLUMNS*NUMBER_OF_LINES_PER_COLUMN + "-"*AMOUNT_OF_SPACES_BEETWEEN_COLUMNS)
-
-        #print(f"|\n ---------------------------")
 
 def winCondition(board, square_content, NUMBER_OF_SQUARES):
 
@@ -98,8 +97,11 @@ def winCondition(board, square_content, NUMBER_OF_SQUARES):
 
 def emptySquare(board, column_number, row_number):
     square = board[column_number-1][row_number]
-
     return square == ' '
+
+def fullColumn(board, column_number):
+    square = board[column_number-1][0]
+    return (square != ' ')
 
 def main():
     os.system('clear')
@@ -133,6 +135,10 @@ def main():
         player_sign = player_signs_dict[player]
         #iteration begins from the last row_num in the column
         row_number = NUMBER_OF_ROWS-1
+        
+        if fullColumn(board, column_number):
+            input("This column is full! Press enter to continue.")
+            continue
         
         while row_number >= 0:
             if emptySquare(board, column_number, row_number):
