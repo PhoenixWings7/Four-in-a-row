@@ -22,7 +22,7 @@ def selecting_players(number_of_players):
         number_of_players+=-1
     return player_signs_dict, players_names
         
-def selecting_number_of_players(MAXIMUM_NUMBER_OF_PLAYERS):
+def selecting_number_of_players(MINIMUM_NUMBER_OF_PLAYERS, MAXIMUM_NUMBER_OF_PLAYERS):
     valid_player_number = list(map(str, range(1,MAXIMUM_NUMBER_OF_PLAYERS+1)))
     number_of_players = input(f"Enter number of players (max number of players is {MAXIMUM_NUMBER_OF_PLAYERS}): ")
     while number_of_players not in valid_player_number:
@@ -105,13 +105,14 @@ def main():
     os.system('clear')
     print("You're about to play Four in a row. Enjoy.")
 
+    MINIMUM_NUMBER_OF_PLAYERS = 1
     MAXIMUM_NUMBER_OF_PLAYERS = 5
     MINIMUM_NUMBER_OF_COLUMNS = 4
     MAXIMUM_NUMBER_OF_COLUMNS = 9
     MINIMUM_NUMBER_OF_ROWS = 4
     MAXIMUM_NUMBER_OF_ROWS = 12
     
-    number_of_players = selecting_number_of_players(MAXIMUM_NUMBER_OF_PLAYERS)
+    number_of_players = selecting_number_of_players(MINIMUM_NUMBER_OF_PLAYERS, MAXIMUM_NUMBER_OF_PLAYERS)
     player_signs_dict, players_names = selecting_players(number_of_players)
     NUMBER_OF_COLUMNS = selecting_number_of_columns(MINIMUM_NUMBER_OF_COLUMNS, MAXIMUM_NUMBER_OF_COLUMNS)
     NUMBER_OF_ROWS = selecting_number_of_rows(MINIMUM_NUMBER_OF_ROWS, MAXIMUM_NUMBER_OF_ROWS)
